@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Safety Check</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 15px;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        h1 {
+            font-size: 1.5em;
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .question {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        label {
+            font-size: 1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fafafa;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        button {
+            padding: 12px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1em;
+            display: none;
+        }
+        .safe {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .caution {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .unsafe {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.2em;
+            }
+            .question {
+                padding: 10px;
+            }
+            select, button {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Driver Safety Check</h1>
+    <div id="assessmentForm">
+        <div class="question">
+            <label>1. How alert do you feel?</label>
+            <select id="q1" required>
+                <option value="">Select</option>
+                <option value="3">Very alert</option>
+                <option value="2">Moderately alert</option>
+                <option value="1">Slightly alert</option>
+                <option value="0">Not alert</option>
+            </select>
+        </div>
+        <div class="question">
+            <label>2. Did you sleep at least 6 hours?</label>
+            <select id="q2" required>
+                <option value="">Select</option>
+                <option value="3">Yes, well-rested</option>
+                <option value="1">Somewhat rested</option>
+                <option value="0">No, less than 6 hours</option>
+            </select>
+        </div>
+        <div class="question">
+            <label>3. Are you feeling stressed?</label>
+            <select id="q3" required>
+                <option value="">Select</option>
+                <option value="3">Not at all</option>
+                <option value="2">Slightly</option>
+                <option value="1">Moderately</option>
+                <option value="0">Very stressed</option>
+            </select>
+        </div>
+        <div class="question">
+            <label>4. Any alcohol/drugs in last 12 hours?</label>
+            <select id="q4" required>
+                <option value="">Select</option>
+                <option value="3">No</option>
+                <option value="0">Yes</option>
+            </select>
+        </div>
+        <div class="question">
+            <label>5. How confident are you to focus?</label>
+            <select id="q5" required>
+                <option value="">Select</option>
+                <option value="3">Very confident</option>
+                <option value="2">Moderately confident</option>
+                <option value="1">Slightly confident</option>
+                <option value="0">Not confident</option>
+            </select>
+        </div>
+        <button onclick="assessCognitiveState()">Check Safety</button>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        function assessCognitiveState() {
+            const q1 = parseInt(document.getElementById('q1').value);
+            const q2 = parseInt(document.getElementById('q2').value);
+            const q3 = parseInt(document.getElementById('q3').value);
+            const q4 = parseInt(document.getElementById('q4').value);
+            const q5 = parseInt(document.getElementById('q5').value);
+
+            if (isNaN(q1) || isNaN(q2) || isNaN(q3) || isNaN(q4) || isNaN(q5)) {
+                alert('Please answer all questions.');
+                return;
+            }
+
+            const totalScore = q1 + q2 + q3 + q4 + q5;
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+
+            if (totalScore >= 12) {
+                resultDiv.className = 'safe';
+                resultDiv.innerHTML = 'You’re in a good state to drive safely.';
+            } else if (totalScore >= 8) {
+                resultDiv.className = 'caution';
+                resultDiv.innerHTML = 'Caution: You may have some risks. Consider resting before driving.';
+            } else {
+                resultDiv.className = 'unsafe';
+                resultDiv.innerHTML = 'Warning: Do not drive. Rest or seek assistance.';
+            }
+        }
+    </script>
+</body>
+</html>
