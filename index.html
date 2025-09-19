@@ -94,8 +94,38 @@
     <h1>Driver Safety Check</h1>
     <div id="assessmentForm">
         <div class="question">
-            <label>1. How alert do you feel?</label>
+            <label>1. How often do you find yourself distracted by unrelated thoughts while driving?</label>
             <select id="q1" required>
+                <option value="">Select</option>
+                <option value="3">Not at all</option>
+                <option value="2">Rarely</option>
+                <option value="1">Sometimes</option>
+                <option value="0">Frequently</option>
+            </select>
+        </div>
+        <div class="question">
+            <label>2. Have you recently forgotten where you parked your car or missed a familiar turn?</label>
+            <select id="q2" required>
+                <option value="">Select</option>
+                <option value="3">No, never</option>
+                <option value="2">Rarely</option>
+                <option value="1">Occasionally</option>
+                <option value="0">Often</option>
+            </select>
+        </div>
+        <div class="question">
+            <label>3. How do you react when another driver cuts you off?</label>
+            <select id="q3" required>
+                <option value="">Select</option>
+                <option value="3">Stay calm and continue safely</option>
+                <option value="2">Feel mildly annoyed but let it go</option>
+                <option value="1">Get frustrated and honk or tailgate</option>
+                <option value="0">Become very angry and respond aggressively</option>
+            </select>
+        </div>
+        <div class="question">
+            <label>4. How alert do you feel?</label>
+            <select id="q4" required>
                 <option value="">Select</option>
                 <option value="3">Very alert</option>
                 <option value="2">Moderately alert</option>
@@ -104,8 +134,8 @@
             </select>
         </div>
         <div class="question">
-            <label>2. Did you sleep at least 6 hours?</label>
-            <select id="q2" required>
+            <label>5. Did you sleep at least 6 hours?</label>
+            <select id="q5" required>
                 <option value="">Select</option>
                 <option value="3">Yes, well-rested</option>
                 <option value="1">Somewhat rested</option>
@@ -113,8 +143,8 @@
             </select>
         </div>
         <div class="question">
-            <label>3. Are you feeling stressed?</label>
-            <select id="q3" required>
+            <label>6. Are you feeling stressed?</label>
+            <select id="q6" required>
                 <option value="">Select</option>
                 <option value="3">Not at all</option>
                 <option value="2">Slightly</option>
@@ -123,21 +153,41 @@
             </select>
         </div>
         <div class="question">
-            <label>4. Any alcohol/drugs in last 12 hours?</label>
-            <select id="q4" required>
+            <label>7. Any alcohol/drugs in last 12 hours?</label>
+            <select id="q7" required>
                 <option value="">Select</option>
                 <option value="3">No</option>
                 <option value="0">Yes</option>
             </select>
         </div>
         <div class="question">
-            <label>5. How confident are you to focus?</label>
-            <select id="q5" required>
+            <label>8. How confident are you to focus?</label>
+            <select id="q8" required>
                 <option value="">Select</option>
                 <option value="3">Very confident</option>
                 <option value="2">Moderately confident</option>
                 <option value="1">Slightly confident</option>
                 <option value="0">Not confident</option>
+            </select>
+        </div>
+        <div class="question">
+            <label>9. How anxious do you feel in high-stress driving situations like heavy traffic or bad weather?</label>
+            <select id="q9" required>
+                <option value="">Select</option>
+                <option value="3">Not anxious</option>
+                <option value="2">Mildly anxious</option>
+                <option value="1">Moderately anxious</option>
+                <option value="0">Highly anxious</option>
+            </select>
+        </div>
+        <div class="question">
+            <label>10. Do you notice your reactions (e.g., braking or steering) feeling slower due to tiredness?</label>
+            <select id="q10" required>
+                <option value="">Select</option>
+                <option value="3">No, reactions are sharp</option>
+                <option value="2">Slightly slower</option>
+                <option value="1">Noticeably slower</option>
+                <option value="0">Much slower</option>
             </select>
         </div>
         <button onclick="assessCognitiveState()">Check Safety</button>
@@ -151,20 +201,26 @@
             const q3 = parseInt(document.getElementById('q3').value);
             const q4 = parseInt(document.getElementById('q4').value);
             const q5 = parseInt(document.getElementById('q5').value);
+            const q6 = parseInt(document.getElementById('q6').value);
+            const q7 = parseInt(document.getElementById('q7').value);
+            const q8 = parseInt(document.getElementById('q8').value);
+            const q9 = parseInt(document.getElementById('q9').value);
+            const q10 = parseInt(document.getElementById('q10').value);
 
-            if (isNaN(q1) || isNaN(q2) || isNaN(q3) || isNaN(q4) || isNaN(q5)) {
+            if (isNaN(q1) || isNaN(q2) || isNaN(q3) || isNaN(q4) || isNaN(q5) ||
+                isNaN(q6) || isNaN(q7) || isNaN(q8) || isNaN(q9) || isNaN(q10)) {
                 alert('Please answer all questions.');
                 return;
             }
 
-            const totalScore = q1 + q2 + q3 + q4 + q5;
+            const totalScore = q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8 + q9 + q10;
             const resultDiv = document.getElementById('result');
             resultDiv.style.display = 'block';
 
-            if (totalScore >= 12) {
+            if (totalScore >= 24) {
                 resultDiv.className = 'safe';
                 resultDiv.innerHTML = 'You’re in a good state to drive safely.';
-            } else if (totalScore >= 8) {
+            } else if (totalScore >= 16) {
                 resultDiv.className = 'caution';
                 resultDiv.innerHTML = 'Caution: You may have some risks. Consider resting before driving.';
             } else {
@@ -175,3 +231,4 @@
     </script>
 </body>
 </html>
+
